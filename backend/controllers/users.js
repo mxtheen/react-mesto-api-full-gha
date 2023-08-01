@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
+const { JWT_SECRET, NODE_ENV } = process.env;
+
 const { CREATED } = require('../utils/statusCodes');
 const BadRequestError = require('../utils/errors/BadRequestError');
 const NotFoundError = require('../utils/errors/NotFoundError');
@@ -136,7 +138,8 @@ const loginUser = (req, res, next) => {
           if (!matched) {
             return next(new UnauthorizedError('Неправильная почта или пароль'));
           }
-          return res.send({ token: jwt.sign({ id: user._id }, 'super-strong-secret', { expiresIn: '7d' }) });
+          const token = jwt.sign({ id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-key', { expiresIn: '7d' });
+          return res.send({ token });
         });
     })
     .catch((err) => {

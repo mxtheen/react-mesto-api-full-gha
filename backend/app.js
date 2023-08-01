@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 
 const app = express();
@@ -11,7 +10,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
 
-const { PORT } = process.env;
+const { PORT = 3000 } = process.env;
 const { loginUser, createUser } = require('./controllers/users');
 const { authMiddleware } = require('./middlewares/auth');
 const { validationLogin, validationCreateUser } = require('./middlewares/celebrate/user');

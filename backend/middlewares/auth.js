@@ -1,5 +1,7 @@
 /* eslint-disable consistent-return */
 const jwt = require('jsonwebtoken');
+
+const { JWT_SECRET } = process.env;
 const UnauthorizedError = require('../utils/errors/UnauthorizedError');
 
 const extractBearerToken = (header) => header.replace('Bearer ', '');
@@ -12,7 +14,7 @@ const authMiddleware = (req, res, next) => {
   const token = extractBearerToken(authorization);
   let payload;
   try {
-    payload = jwt.verify(token, 'super-strong-secret');
+    payload = jwt.verify(token, JWT_SECRET);
   } catch (err) {
     return next(new UnauthorizedError('Ошибка авторизации.'));
   }

@@ -1,9 +1,12 @@
+require('dotenv').config();
 const { isValidObjectId } = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const { CREATED } = require('../utils/statusCodes');
+
+const { JWT_SECRET } = process.env;
 const BadRequestError = require('../utils/errors/BadRequestError');
 const NotFoundError = require('../utils/errors/NotFoundError');
 const ConflictError = require('../utils/errors/ConflictError');
@@ -136,7 +139,7 @@ const loginUser = (req, res, next) => {
           if (!matched) {
             return next(new UnauthorizedError('Неправильная почта или пароль'));
           }
-          return res.send({ token: jwt.sign({ id: user._id }, 'super-strong-secret', { expiresIn: '7d' }) });
+          return res.send({ token: jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '7d' }) });
         });
     })
     .catch((err) => {

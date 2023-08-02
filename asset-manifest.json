@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/mxtheen/react-mesto-api-full-gha/static/css/main.7ba3f9bb.css",
+    "main.js": "/mxtheen/react-mesto-api-full-gha/static/js/main.648a1920.js",
+    "static/media/Inter-Medium.woff": "/mxtheen/react-mesto-api-full-gha/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Black.woff": "/mxtheen/react-mesto-api-full-gha/static/media/Inter-Black.c6938660eec019fefd68.woff",
+    "static/media/Inter-Regular.woff": "/mxtheen/react-mesto-api-full-gha/static/media/Inter-Regular.8c206db99195777c6769.woff",
+    "static/media/Inter-Medium.woff2": "/mxtheen/react-mesto-api-full-gha/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-Black.woff2": "/mxtheen/react-mesto-api-full-gha/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
+    "static/media/Inter-Regular.woff2": "/mxtheen/react-mesto-api-full-gha/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/Anxious-face-with-sweat.svg": "/mxtheen/react-mesto-api-full-gha/static/media/Anxious-face-with-sweat.c4ce0d587a1b66a669ce452cdf368c1d.svg",
+    "static/media/headerLogo.svg": "/mxtheen/react-mesto-api-full-gha/static/media/headerLogo.03b78ada3425e9132ff3db7ea8f4a6f6.svg",
+    "static/media/element_like_button.svg": "/mxtheen/react-mesto-api-full-gha/static/media/element_like_button.87ed371465c7a6a1cd01.svg",
+    "static/media/failedRegistration.svg": "/mxtheen/react-mesto-api-full-gha/static/media/failedRegistration.df8eddf661ff88f2d0efd3d570d14309.svg",
+    "static/media/element_remove_button.svg": "/mxtheen/react-mesto-api-full-gha/static/media/element_remove_button.823b0cf1b0b7e9cb7cad.svg",
+    "static/media/succesful_registration.svg": "/mxtheen/react-mesto-api-full-gha/static/media/succesful_registration.1b6082f862eac35e2514460237d96ecc.svg",
+    "index.html": "/mxtheen/react-mesto-api-full-gha/index.html",
+    "static/media/element_like_button_active.svg": "/mxtheen/react-mesto-api-full-gha/static/media/element_like_button_active.fe17a515669479b1e649.svg",
+    "static/media/editButton.svg": "/mxtheen/react-mesto-api-full-gha/static/media/editButton.a1892ea72cb87c8fc3aa.svg",
+    "static/media/changeAvatarPencil.svg": "/mxtheen/react-mesto-api-full-gha/static/media/changeAvatarPencil.a086f758840ae814ecde.svg",
+    "static/media/vector_plus__image.svg": "/mxtheen/react-mesto-api-full-gha/static/media/vector_plus__image.d86bb2edc2f6eadb96b785d29c82b56e.svg",
+    "main.7ba3f9bb.css.map": "/mxtheen/react-mesto-api-full-gha/static/css/main.7ba3f9bb.css.map",
+    "main.648a1920.js.map": "/mxtheen/react-mesto-api-full-gha/static/js/main.648a1920.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7ba3f9bb.css",
+    "static/js/main.648a1920.js"
+  ]
+}

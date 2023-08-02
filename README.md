@@ -9,8 +9,8 @@
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 158.160.109.140
 
-Frontend https://...
+Frontend https://mxtheem.students.nomoredomains.sbs/
 
-Backend https://...
+Backend https://api.mxtheem.students.nomoreparties.co/

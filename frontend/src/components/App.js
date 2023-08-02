@@ -33,6 +33,21 @@ function App() {
 
   const navigate = useNavigate()
 
+
+  React.useEffect(() => {
+    Promise.all([
+      apiInit.getUserInfo(),
+      apiInit.getInitialCards()
+    ])
+      .then(([userData, cardData]) => {
+        setCurrentUser(userData)
+        setCards(cardData.reverse())
+      })
+      .catch((err) => {
+        console.log("При получении данных с сервера возникла ошибка:", err)
+      })
+}, [])
+
   function handleLogin(email, password) {
     auth.login(email, password)
       .then((data) => {
@@ -159,19 +174,6 @@ function App() {
         })
   }
 
-  React.useEffect(() => {
-      Promise.all([
-        apiInit.getUserInfo(),
-        apiInit.getInitialCards()
-      ])
-        .then(([userData, cardData]) => {
-          setCurrentUser(userData)
-          setCards(cardData.reverse())
-        })
-        .catch((err) => {
-          console.log("При получении данных с сервера возникла ошибка:", err)
-        })
-  }, [])
 
   function closeAllPopups() {
     setEditProfilePopupOpen(false)

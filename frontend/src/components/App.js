@@ -33,23 +33,6 @@ function App() {
 
   const navigate = useNavigate()
 
-  React.useEffect(() => {
-    const jwt = localStorage.getItem("jwt")
-    if (jwt){
-      Promise.all([
-        apiInit.getUserInfo(),
-        apiInit.getInitialCards()
-      ])
-        .then(([userData, cardData]) => {
-          setCurrentUser(userData)
-          setCards(cardData.reverse())
-        })
-        .catch((err) => {
-          console.log("При получении данных с сервера возникла ошибка:", err)
-        })
-    }
-  }, [loggedIn])
-
   function handleLogin(email, password) {
     auth.login(email, password)
       .then((data) => {
@@ -175,6 +158,20 @@ function App() {
           console.log("При снятии лайка карточки возникла ошибка:", err)
         })
   }
+
+  React.useEffect(() => {
+      Promise.all([
+        apiInit.getUserInfo(),
+        apiInit.getInitialCards()
+      ])
+        .then(([userData, cardData]) => {
+          setCurrentUser(userData)
+          setCards(cardData.reverse())
+        })
+        .catch((err) => {
+          console.log("При получении данных с сервера возникла ошибка:", err)
+        })
+  }, [])
 
   function closeAllPopups() {
     setEditProfilePopupOpen(false)

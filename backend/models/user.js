@@ -27,7 +27,6 @@ const userSchema = new mongoose.Schema({
       message: 'Ошибка при вводе поля email',
     },
     minlength: 4,
-    maxlength: 50,
   },
   password: {
     type: String,

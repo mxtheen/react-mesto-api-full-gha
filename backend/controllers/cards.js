@@ -1,4 +1,8 @@
-const { isValidObjectId } = require('mongoose');
+const mongoose = require('mongoose');
+
+const { isValidObjectId } = mongoose;
+const { ValidationError, CastError } = mongoose.Error;
+
 const Card = require('../models/card');
 
 const { CREATED } = require('../utils/statusCodes');
@@ -13,7 +17,7 @@ const createCard = (req, res, next) => {
       res.status(CREATED).send(card);
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err.name instanceof ValidationError) {
         next(new BadRequestError('Переданы некорректные данные при создании карточки.'));
       } else {
         next(err);
@@ -41,7 +45,7 @@ const getCardById = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err.name instanceof CastError) {
         next(new BadRequestError('Переданы некорректные данные при поиске карточки.'));
       } else {
         next(err);
@@ -51,17 +55,20 @@ const getCardById = (req, res, next) => {
 
 const deleteCard = (req, res, next) => {
   const { cardId } = req.params;
-  Card.findByIdAndRemove(cardId)
+  Card.findById(cardId)
     .then((data) => {
       if (!data) {
         next(new NotFoundError('Карточка с указанным _id не найдена.'));
-      } if (!data.owner.equals(req.user.id)) {
-        next(new ForbiddenError('Недостаточно прав для удаления карточки'));
+      } if (data.owner !== req.user.id) {
+        return next(new ForbiddenError('Недостаточно прав для удаления карточки'));
       }
-      return res.send(data);
+      return Card.findByIdAndRemove(cardId)
+        .then((deletedData) => {
+          res.send(deletedData);
+        });
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err.name instanceof CastError) {
         next(new BadRequestError('Переданы некорректные данные для удаления карточки.'));
       } else {
         next(err);
@@ -84,7 +91,7 @@ const likeCard = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError' || err.name === 'ValidationError') {
+      if (err.name instanceof CastError) {
         next(new BadRequestError('Переданы некорректные данные для лайка карточки.'));
       } else {
         next(err);
@@ -107,7 +114,7 @@ const dislikeCard = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError' || err.name === 'ValidationError') {
+      if (err.name instanceof CastError) {
         next(new BadRequestError('Переданы некорректные данные для дизлайка карточки.'));
       } else {
         next(err);

@@ -29,14 +29,14 @@ const validationGetUserById = celebrate({
 
 const validationUpdateUserData = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
+    name: Joi.string().min(2).max(30).required(),
+    about: Joi.string().min(2).max(30).required(),
   }),
 });
 
 const validationUpdateUserAvatar = celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().pattern(linkRegExp),
+    avatar: Joi.string().pattern(linkRegExp).required(),
   }),
 });
 module.exports = {

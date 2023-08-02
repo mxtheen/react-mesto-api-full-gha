@@ -1,8 +1,9 @@
-const { isValidObjectId } = require('mongoose');
+const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
+const { ValidationError, CastError } = mongoose.Error;
 const { JWT_SECRET, NODE_ENV } = process.env;
 
 const { CREATED } = require('../utils/statusCodes');
@@ -25,7 +26,7 @@ const createUser = (req, res, next) => {
       });
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err.name instanceof ValidationError) {
         next(new BadRequestError('Переданы некорректные данные при создании пользователя.'));
       } else if (err.code === 11000) {
         next(new ConflictError('Пользователь с такой почтой уже зарегистрирован.'));
@@ -47,10 +48,6 @@ const getUsers = (req, res, next) => {
 
 const getUserById = (req, res, next) => {
   const { userId } = req.params;
-  if (!isValidObjectId(userId)) {
-    next(new BadRequestError('Переданы некорректные данные при поиске пользователя.'));
-    return;
-  }
   User.findById(userId)
     .then((user) => {
       if (user) {
@@ -60,7 +57,7 @@ const getUserById = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError' || err.name === 'ValidationError') {
+      if (err.name instanceof CastError) {
         next(new BadRequestError('Переданы некорректные данные при поиске пользователя.'));
       } else {
         next(err);
@@ -78,11 +75,7 @@ const getCurrentUserData = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError' || err.name === 'ValidationError') {
-        next(new BadRequestError('Возникла ошибка при попытке получить информацию о профиле'));
-      } else {
-        next(err);
-      }
+      next(err);
     });
 };
 
@@ -97,10 +90,10 @@ const updateUserData = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError' || err.name === 'ValidationError') {
+      if (err.name instanceof ValidationError) {
         next(new BadRequestError('Переданы некорректные данные при обновлении профиля.'));
       } else {
-        next();
+        next(err);
       }
     });
 };
@@ -116,9 +109,7 @@ const updateUserAvatar = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new NotFoundError('Пользователь по указанному _id не найден.'));
-      } else if (err.name === 'ValidationError') {
+      if (err.name instanceof ValidationError) {
         next(new BadRequestError('Переданы некорректные данные при обновлении автара профиля.'));
       } else {
         next(err);

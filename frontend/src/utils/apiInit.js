@@ -1,6 +1,6 @@
 import Api from "./Api.js"
 const apiConfig = ({
-  url: 'http://mxtheem.students.nomoredomains.sbs/',
+  url: 'http://api.mxtheem.students.nomoreparties.co/',
   headers: {
     authorization: `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json'

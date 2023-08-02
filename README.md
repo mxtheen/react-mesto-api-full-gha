@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.109.140
+IP-адрес 158.160.23.51
 
 Frontend https://mxtheem.students.nomoredomains.sbs/
 

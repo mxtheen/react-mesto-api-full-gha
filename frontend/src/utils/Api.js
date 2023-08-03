@@ -12,8 +12,12 @@ export default class Api {
     }
   }
   getInitialCards() {
+    const jwt = localStorage.getItem('jwt')
     return fetch(`${this.url}cards`, {
-      headers: this.headers,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+        "Content-Type": "application/json"
+      },
       method: "GET"
     }).then(res => {
       return this._getJSONResponse(res)
@@ -31,8 +35,12 @@ export default class Api {
   }
 
   getUserInfo() {
+    const jwt = localStorage.getItem('jwt')
     return fetch(`${this.url}users/me`, {
-      headers: this.headers,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+        "Content-Type": "application/json"
+      },
       method: "GET"
     }).then(res => {
       return this._getJSONResponse(res)

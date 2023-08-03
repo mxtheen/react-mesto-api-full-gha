@@ -17,7 +17,7 @@ const createCard = (req, res, next) => {
       res.status(CREATED).send(card);
     })
     .catch((err) => {
-      if (err.name instanceof ValidationError) {
+      if (err instanceof ValidationError) {
         next(new BadRequestError('Переданы некорректные данные при создании карточки.'));
       } else {
         next(err);
@@ -45,7 +45,7 @@ const getCardById = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name instanceof CastError) {
+      if (err instanceof CastError) {
         next(new BadRequestError('Переданы некорректные данные при поиске карточки.'));
       } else {
         next(err);
@@ -92,7 +92,7 @@ const likeCard = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name instanceof CastError) {
+      if (err instanceof CastError) {
         next(new BadRequestError('Переданы некорректные данные для лайка карточки.'));
       } else {
         next(err);
@@ -115,7 +115,7 @@ const dislikeCard = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name instanceof CastError) {
+      if (err instanceof CastError) {
         next(new BadRequestError('Переданы некорректные данные для дизлайка карточки.'));
       } else {
         next(err);

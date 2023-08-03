@@ -6,6 +6,7 @@ const FORBIDDEN = 403;
 const NOT_FOUND = 404;
 const CONFLICT = 409;
 const INTERNAL_SERVER_ERROR = 500;
+const DUBLICATE_KEY = 11000;
 
 module.exports = {
   CREATED,
@@ -15,4 +16,5 @@ module.exports = {
   CONFLICT,
   UNAUTHORIZED,
   FORBIDDEN,
+  DUBLICATE_KEY,
 };

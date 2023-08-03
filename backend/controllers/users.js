@@ -6,7 +6,7 @@ const User = require('../models/user');
 const { ValidationError, CastError } = mongoose.Error;
 const { JWT_SECRET, NODE_ENV } = process.env;
 
-const { CREATED } = require('../utils/statusCodes');
+const { CREATED, DUBLICATE_KEY } = require('../utils/statusCodes');
 const BadRequestError = require('../utils/errors/BadRequestError');
 const NotFoundError = require('../utils/errors/NotFoundError');
 const ConflictError = require('../utils/errors/ConflictError');
@@ -26,9 +26,9 @@ const createUser = (req, res, next) => {
       });
     })
     .catch((err) => {
-      if (err.name instanceof ValidationError) {
+      if (err instanceof ValidationError) {
         next(new BadRequestError('Переданы некорректные данные при создании пользователя.'));
-      } else if (err.code === 11000) {
+      } else if (err.code === DUBLICATE_KEY) {
         next(new ConflictError('Пользователь с такой почтой уже зарегистрирован.'));
       } else {
         next(err);
@@ -57,7 +57,7 @@ const getUserById = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name instanceof CastError) {
+      if (err instanceof CastError) {
         next(new BadRequestError('Переданы некорректные данные при поиске пользователя.'));
       } else {
         next(err);
@@ -90,7 +90,7 @@ const updateUserData = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name instanceof ValidationError) {
+      if (err instanceof ValidationError) {
         next(new BadRequestError('Переданы некорректные данные при обновлении профиля.'));
       } else {
         next(err);
@@ -109,7 +109,7 @@ const updateUserAvatar = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name instanceof ValidationError) {
+      if (err instanceof ValidationError) {
         next(new BadRequestError('Переданы некорректные данные при обновлении автара профиля.'));
       } else {
         next(err);

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-const { isValidObjectId } = mongoose;
 const { ValidationError, CastError } = mongoose.Error;
 
 const Card = require('../models/card');
@@ -79,10 +78,6 @@ const deleteCard = (req, res, next) => {
 
 const likeCard = (req, res, next) => {
   const { cardId } = req.params;
-  if (!isValidObjectId(cardId)) {
-    next(new BadRequestError('Переданы некорректные данные при поиске карточки.'));
-    return;
-  }
   Card.findByIdAndUpdate(cardId, { $addToSet: { likes: req.user.id } }, { new: true })
     .then((data) => {
       if (data) {
@@ -102,10 +97,6 @@ const likeCard = (req, res, next) => {
 
 const dislikeCard = (req, res, next) => {
   const { cardId } = req.params;
-  if (!isValidObjectId(cardId)) {
-    next(new BadRequestError('Переданы некорректные данные при поиске карточки.'));
-    return;
-  }
   Card.findByIdAndUpdate(cardId, { $pull: { likes: req.user.id } }, { new: true })
     .then((data) => {
       if (data) {
